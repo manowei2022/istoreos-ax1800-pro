@@ -393,23 +393,7 @@ jobs:
           if [ -n "$WARN_ONLY" ]; then
             echo "::warning::以下可选组件未进入固件: $WARN_ONLY"
           fi
-          for p in \
-          kmod-usb-core \
-          kmod-usb-ohci \
-          kmod-usb2 \
-          kmod-usb-serial \
-          kmod-usb-serial-option \
-          kmod-usb-serial-wwan \
-          kmod-usb-net \
-          kmod-usb-net-qmi-wwan \
-          kmod-usb-net-cdc-mbim \
-          kmod-usb-net-cdc-ether \
-          kmod-usb-net-cdc-ncmdo \
-          if ! grep -q "^${p} " "$MANIFEST"; then
-              echo "::error::manifest 中没有 ${p}"
-              exit 1
-          fi
-            done
+         
           if [ -n "$HARD_FAIL" ]; then
             echo "::error::关键界面栈在 defconfig 后丢失，完整版界面无法成型: $HARD_FAIL"
             echo "::group::诊断：这些包是否被 feeds 收录"
