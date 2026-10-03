@@ -362,6 +362,17 @@ jobs:
           luci-app-ttyd
           luci-theme-argon
           luci-app-samba4
+          kmod-usb-core
+          kmod-usb-ohci
+          kmod-usb2
+          kmod-usb-serial
+          kmod-usb-serial-option
+          kmod-usb-serial-wwan
+          kmod-usb-net
+          kmod-usb-net-qmi-wwan
+          kmod-usb-net-cdc-mbim
+          kmod-usb-net-cdc-ether
+          kmod-usb-net-cdc-ncmdo
           "
           SOFT="
           luci-app-ksmbd
@@ -480,6 +491,22 @@ jobs:
             exit 1
           fi
           echo "TUN 支持校验通过：kmod-tun 已入固件"
+
+          # EC20 4G modem 驱动必须真正进入最终固件
+          for p in \
+           kmod-usb2 \
+           kmod-usb-serial \
+           kmod-usb-serial-option \
+           kmod-usb-serial-wwan \
+           kmod-usb-net \
+           kmod-usb-net-qmi-wwan
+          do
+          if ! grep -q "^${p} " "$MANIFEST"; then
+           echo "::error::manifest 中没有 ${p}，EC20 驱动未进入最终固件"
+           exit 1
+          fi
+          echo "EC20 kmod 校验通过：${p}"
+          done
 
       - name: 校验服务自启 (Verify services are enabled at first boot)
         run: |
