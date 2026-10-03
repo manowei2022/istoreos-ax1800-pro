@@ -372,7 +372,7 @@ jobs:
           kmod-usb-net-qmi-wwan
           kmod-usb-net-cdc-mbim
           kmod-usb-net-cdc-ether
-          kmod-usb-net-cdc-ncmdo
+          kmod-usb-net-cdc-ncm
           "
           SOFT="
           luci-app-ksmbd
