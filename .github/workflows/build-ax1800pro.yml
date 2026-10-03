@@ -309,6 +309,9 @@ jobs:
           CONFIG_PACKAGE_kmod-usb-net-cdc-mbim=y
           CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y
           CONFIG_PACKAGE_kmod-usb-net-cdc-ncm=y
+          CONFIG_PACKAGE_kmod-usb-acm=y
+          CONFIG_PACKAGE_kmod-usb-net-rndis=y
+          CONFIG_PACKAGE_kmod-usb-serial-qualcomm=y
           # ===============================================================
 
 
@@ -373,6 +376,9 @@ jobs:
           kmod-usb-net-cdc-mbim
           kmod-usb-net-cdc-ether
           kmod-usb-net-cdc-ncm
+          kmod-usb-acm
+          kmod-usb-net-rndis
+          kmod-usb-serial-qualcomm
           "
           SOFT="
           luci-app-ksmbd
@@ -494,12 +500,20 @@ jobs:
 
           # EC20 4G modem 驱动必须真正进入最终固件
           for p in \
+           kmod-usb-core \
+           kmod-usb-ohci \
            kmod-usb2 \
            kmod-usb-serial \
            kmod-usb-serial-option \
            kmod-usb-serial-wwan \
            kmod-usb-net \
-           kmod-usb-net-qmi-wwan
+           kmod-usb-net-qmi-wwan \
+           kmod-usb-net-cdc-mbim \
+           kmod-usb-net-cdc-ether \
+           kmod-usb-net-cdc-ncm \
+           kmod-usb-acm \
+           kmod-usb-net-rndis \
+           kmod-usb-serial-qualcomm
           do
           if ! grep -q "^${p} " "$MANIFEST"; then
            echo "::error::manifest 中没有 ${p}，EC20 驱动未进入最终固件"
